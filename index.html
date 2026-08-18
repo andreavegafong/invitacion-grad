@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación de Graduación</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4ede4;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      cursor: pointer;
+      perspective: 1000px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .envelope {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      background: #c5a059;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Solapa superior abatible */
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 130px solid #b38f48;
+      transform-origin: top;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s 0.25s;
+      z-index: 5;
+    }
+
+    /* Solapa frontal inferior */
+    .envelope::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #d4af37;
+      border-right: 160px solid #d4af37;
+      border-bottom: 120px solid #c5a059;
+      border-radius: 0 0 8px 8px;
+      z-index: 4;
+    }
+
+    /* Tarjeta interior */
+    .card {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      width: 280px;
+      height: 200px;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      z-index: 2;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.35s, z-index 0.1s 0.7s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      color: #2b2b2b;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .card .hint {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #b38f48;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Sello de cera */
+    .wax-seal {
+      position: absolute;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: #8b1515;
+      border-radius: 50%;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+      transition: opacity 0.3s ease, transform 0.4s ease;
+    }
+
+    /* Animaciones al hacer clic */
+    .envelope-wrapper.open .envelope::before {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-wrapper.open .wax-seal {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.8);
+      pointer-events: none;
+    }
+
+    .envelope-wrapper.open .card {
+      transform: translateY(-130px);
+      z-index: 6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope">
+      <div class="wax-seal">🎓</div>
+      <div class="card">
+        <h2>Graduación</h2>
+        <p>Estás cordialmente invitado(a)</p>
+        <span class="hint">Abriendo invitación...</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const wrapper = document.getElementById('envelopeWrapper');
+    const canvaURL = 'https://canva.link/j169l2dmgnyis2r';
+
+    let isOpened = false;
+
+    wrapper.addEventListener('click', () => {
+      if (!isOpened) {
+        isOpened = true;
+        wrapper.classList.add('open');
+
+        setTimeout(() => {
+          window.location.href = canvaURL;
+        }, 1300);
+      }
+    });
+  </script>
+
+</body>
+</html>
